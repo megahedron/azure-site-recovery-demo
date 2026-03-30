@@ -92,20 +92,6 @@
             }
         },
         {
-            "name": "[concat(variables('vaultName'),'/','vaultconfig')]",
-            "type": "Microsoft.RecoveryServices/vaults/backupconfig",
-            "dependsOn": [
-                "[resourceId('Microsoft.RecoveryServices/vaults', variables('vaultName'))]"
-            ],
-            "apiVersion": "[variables('rcvSvcVltApiVersion')]",
-            "tags": "[parameters('tags')]",
-            "properties": {
-                "enhancedSecurityState": "Disabled",
-                "isSoftDeleteFeatureStateEditable": true,
-                "softDeleteFeatureState": "Disabled"
-            }
-        },
-        {
             "name": "[concat(variables('vaultName'),'/','vaultstorageconfig')]",
             "type": "Microsoft.RecoveryServices/vaults/backupstorageconfig",
             "dependsOn": [
