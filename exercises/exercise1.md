@@ -16,7 +16,7 @@ Select the resource group that begins with rgasrwlpri. This resource group is us
 
 ![primary workload resource group](../images/exercise1-image2.png)
 
-The resource group contains three virtual machines. The VM named vmwpri1cffe is used to represent a stateless application frontend such as a web server. The VM named vmwpri1cfbe is used to represent a stateful application backend such as a database server. These VMs have been preconfigured to replicate with Azure Site Recovery. The third VM named vmwpri2ncffe is not used in the exercises but provided to you in case ou want to further experiment with the service.
+The resource group contains three virtual machines. The VM named vmwpri1cffe is used to represent a stateless application frontend such as a web server. The VM named vmwpri1cfbe is used to represent a stateful application backend such as a database server. These VMs have been preconfigured to replicate with Azure Site Recovery.
 
 An Azure Bastion instance is provided to allow for remote access to the VMs in both the primary region and VMs failed over to the secondary region.
 
