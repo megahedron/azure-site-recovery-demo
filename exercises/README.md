@@ -9,9 +9,6 @@ The exercises in this repository demonstrate the core capabilities of Azure Site
 * [Exercise 5 - Recovery Plans](/exercises/exercise5.md)
 * [Exercise 6 - Operating Azure Site Recovery](/exercises/exercise6.md)
 
-Your journey does not need to stop here! An additional VM named vmwpri2ncffe has been provided to you with this lab. You can use this machine to practice enabling Azure Site Recovery for a new virtual machine.
-
-
 
 
 
