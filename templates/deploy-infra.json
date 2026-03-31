@@ -500,6 +500,45 @@
             }
         },
         {
+            "name": "[variables('deployReplicationFabricComponents')]",
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "[variables('resourcesApiVersion')]",
+            "resourceGroup": "[parameters('rsVaultRg')]",
+            "dependsOn": [
+                "[concat('Microsoft.Resources/deployments/',variables('deployVmWinPriServer2'))]"
+            ],
+            "properties": {
+                "mode": "Incremental",
+                "parameters": {
+                    "priLocation": {
+                        "value": "[parameters('priLocation')]"
+                    },
+                    "rsVaultRepPolicyBeResId": {
+                        "value": "[parameters('rsVaultRepPolicyBeResId')]"
+                    },
+                    "rsVaultRepPolicyFeResId": {
+                        "value": "[parameters('rsVaultRepPolicyFeResId')]"
+                    },
+                    "vnetDstResId": {
+                        "value": "[resourceId(parameters('secResourceGroupName'),'Microsoft.Network/virtualNetworks',variables('wlSecVnetName'))]"
+                    },
+                    "vnetSrcResId": {
+                        "value": "[resourceId('Microsoft.Network/virtualNetworks',variables('wlPriVnetName'))]"
+                    },
+                    "secLocation": {
+                        "value": "[parameters('secLocation')]"
+                    },
+                    "vaultName": {
+                        "value": "[parameters('rsVaultName')]"
+                    }
+                },
+                "templateLink": {
+                    "uri": "[variables('templateUriReplComp')]",
+                    "contentVersion": "1.0.0.0"
+                }
+            }
+        },
+        {
             "name": "[variables('deployVmReplVm1')]",
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "[variables('resourcesApiVersion')]",
