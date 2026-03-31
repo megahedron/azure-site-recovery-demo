@@ -100,7 +100,6 @@
         "deployVmReplVm2": "[concat('deploy-',variables('vmWinPriServer2Name'),'-replication')]",
         "deployVmWinPriServer1": "deploy-vm-win-pri-1-cf-fe",
         "deployVmWinPriServer2": "deploy-vm-win-pri-1-cf-be",
-        "deployVmWinPriServer3": "deploy-vm-win-pri-1-ncf-fe",
         "templateUriReplComp": "[concat(uri(deployment().properties.templateLink.uri,'deploy-replication-components.json'))]",
         "templateUriReplItem": "[concat(uri(deployment().properties.templateLink.uri,'deploy-replication-item.json'))]",
         "templateUriWin": "[concat(uri(deployment().properties.templateLink.uri,'deploy-windows-vm.json'))]",
@@ -109,8 +108,6 @@
         "vmWinPriServer1Ip": "10.0.2.5",
         "vmWinPriServer2Name": "vmwpri1cfbe",
         "vmWinPriServer2Ip": "10.0.3.5",
-        "vmWinPriServer3Name": "vmwpri2ncffe",
-        "vmWinPriServer3Ip": "10.0.2.10",
         "workloadBeSubnetName": "snet-wl-be",
         "workloadFeSubnetName": "snet-wl-fe",
         "wlPriBeNsgName": "nsg-wl-be-pri",
@@ -498,98 +495,6 @@
                 },
                 "templateLink": {
                     "uri": "[variables('templateUriWin')]",
-                    "contentVersion": "1.0.0.0"
-                }
-            }
-        },
-        {
-            "name": "[variables('deployVmWinPriServer3')]",
-            "type": "Microsoft.Resources/deployments",
-            "apiVersion": "[variables('resourcesApiVersion')]",
-            "dependsOn": [
-                "[concat('Microsoft.Resources/deployments/',variables('deployVmWinPriServer2'))]"
-            ],
-            "properties": {
-                "mode": "Incremental",
-                "parameters": {
-                    "adminPassword": {
-                        "value": "[parameters('vmAdminPassword')]"
-                    },
-                    "adminUserName": {
-                        "value": "[parameters('vmAdminUsername')]"
-                    },
-                    "availabilityZone": {
-                        "value": "[variables('availabilityZone')]"
-                    },
-                    "serverIpAddress": {
-                        "value": "[variables('vmWinPriServer3Ip')]"
-                    },
-                    "myWorkspaceId": {
-                        "value": "[reference(parameters('lawResourceId'), '2015-03-20').customerId]"
-                    },
-                    "myWorkspaceKey": {
-                        "value": "[listKeys(parameters('lawResourceId'), '2015-03-20').primarySharedKey]"
-                    },
-                    "subnetName": {
-                        "value": "[variables('workloadFeSubnetName')]"
-                    },
-                    "tags": {
-                        "value": "[parameters('tags')]"
-                    },
-                    "uniqueData": {
-                        "value": "[parameters('uniqueData')]"
-                    },
-                    "virtualMachineSize": {
-                        "value": "[variables('vmSku')]"
-                    },
-                    "vmName": {
-                        "value": "[variables('vmWinPriServer3Name')]"
-                    },
-                    "vnetName": {
-                        "value": "[variables('wlPriVnetName')]"
-                    }
-                },
-                "templateLink": {
-                    "uri": "[variables('templateUriWin')]",
-                    "contentVersion": "1.0.0.0"
-                }
-            }
-        },
-        {
-            "name": "[variables('deployReplicationFabricComponents')]",
-            "type": "Microsoft.Resources/deployments",
-            "apiVersion": "[variables('resourcesApiVersion')]",
-            "resourceGroup": "[parameters('rsVaultRg')]",
-            "dependsOn": [
-                "[concat('Microsoft.Resources/deployments/',variables('deployVmWinPriServer3'))]"
-            ],
-            "properties": {
-                "mode": "Incremental",
-                "parameters": {
-                    "priLocation": {
-                        "value": "[parameters('priLocation')]"
-                    },
-                    "rsVaultRepPolicyBeResId": {
-                        "value": "[parameters('rsVaultRepPolicyBeResId')]"
-                    },
-                    "rsVaultRepPolicyFeResId": {
-                        "value": "[parameters('rsVaultRepPolicyFeResId')]"
-                    },
-                    "vnetDstResId": {
-                        "value": "[resourceId(parameters('secResourceGroupName'),'Microsoft.Network/virtualNetworks',variables('wlSecVnetName'))]"
-                    },
-                    "vnetSrcResId": {
-                        "value": "[resourceId('Microsoft.Network/virtualNetworks',variables('wlPriVnetName'))]"
-                    },
-                    "secLocation": {
-                        "value": "[parameters('secLocation')]"
-                    },
-                    "vaultName": {
-                        "value": "[parameters('rsVaultName')]"
-                    }
-                },
-                "templateLink": {
-                    "uri": "[variables('templateUriReplComp')]",
                     "contentVersion": "1.0.0.0"
                 }
             }
